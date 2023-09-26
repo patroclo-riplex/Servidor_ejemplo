@@ -1,28 +1,15 @@
+// server.js
+
 const express = require('express');
 const app = express();
 const PORT = 3000;
+const listViewRouter = require('./list-view-router');
+const listEditRouter = require('./list-edit-router');
 
-const tasks = [
-  {
-    id: '123',
-    isCompleted: false,
-    description: 'Walk the dog'
-  },
-  {
-    id: '456',
-    isCompleted: true,
-    description: 'Eating the food'
-  },
-  {
-    id: '789',
-    isCompleted: false,
-    description: 'Sleeping in the house'
-  }
-];
+app.use(express.json());  // Habilita el uso de JSON en las solicitudes
 
-app.get('/tasks', (req, res) => {
-  res.json(tasks);
-});
+app.use('/list-view', listViewRouter);
+app.use('/list-edit', listEditRouter);
 
 app.listen(PORT, () => {
   console.log(`Servidor Express escuchando en el puerto ${PORT}`);
